@@ -30,7 +30,9 @@
                     <div class="user-item phone"><strong>Quận:</strong> {{ $user->district_id }}</div>
                     <div class="user-item phone"><strong>Thành phố:</strong>{{ $user->province_id }}</div>
                 </td>
-                <td><a href="">Kích hoạt</a></td>
+                <td>
+                    <input type="checkbox" name="" id="" class="js-switch" checked>
+                </td>
                 <td>
                     <a href="" class="text-info"><i class="fa fa-eye"></i> Detail</a> <br>
                     <a href="" class="text-warning"><i class="fa fa-edit"></i> Edit</a> <br>
@@ -42,3 +44,10 @@
     </tbody>
 </table>
 {{ $users->links('pagination::bootstrap-4') }}
+
+{{--<script>--}}
+{{--    $(document).ready(function() {--}}
+{{--        var elem = document.querySelector('.js-switch');--}}
+{{--        var switchery = new Switchery(elem, {color: '#1AB394'});--}}
+{{--    })--}}
+{{--</script>--}}

@@ -7,6 +7,13 @@
 <link href="backend/css/bootstrap.min.css" rel="stylesheet">
 <link href="backend/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+@if (isset($config['css']) && is_array($config['css']))
+    @foreach($config['css'] as $value)
+        {!! '<link rel="stylesheet" href="'.$value.'">' !!}
+    @endforeach
+@endif
+
 <link href="backend/css/animate.css" rel="stylesheet">
 <link href="backend/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="backend/css/custom.css">
+<script src="backend/js/jquery-3.1.1.min.js"></script>
