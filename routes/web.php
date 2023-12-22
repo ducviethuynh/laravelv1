@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
@@ -30,8 +31,21 @@ Route::get('dashboard/index', [DashboardController::class, 'index'])
     ->middleware(AuthenticateMiddleware::class);
 
 //QUẢN LÍ NGƯỜI DÙNG
+Route::group(['prefix' => 'user'], function (){
+    Route::get('index', [UserController::class, 'index'])
+        ->name('user.index')
+        ->middleware(AuthenticateMiddleware::class);
+    Route::get('create', [UserController::class, 'create'])
+        ->middleware(AuthenticateMiddleware::class);
+});
+
+//AJAX
+Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation']);
+
 Route::get('user/index', [UserController::class, 'index'])
     ->name('user.index')
+    ->middleware(AuthenticateMiddleware::class);
+Route::get('user/create', [UserController::class, 'create'])
     ->middleware(AuthenticateMiddleware::class);
 
 Route::get('admin', [AuthController::class, 'index'])

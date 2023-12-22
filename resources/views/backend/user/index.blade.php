@@ -21,7 +21,7 @@
     <div class="ibox-content">
         @include('backend.user.components.filter')
 
-        <a href="" class="btn btn-primary alignright">
+        <a href="{{ route('user.create') }}" class="btn btn-primary alignright">
             <i class="fa fa-plus"> Thêm thành viên mới</i>
         </a>
 
