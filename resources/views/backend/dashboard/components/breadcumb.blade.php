@@ -1,12 +1,12 @@
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-8">
-        <h2>Title</h2>
-        <ol class="breadcumb" style="margin-bottom: 10px">
+    <div class="col-lg-10">
+        <h2>{{ $title }}</h2>
+        <ol class="breadcrumb">
             <li>
-                <a href="">Dashboard</a>
+                <a href="{{ route('dashboard.index') }}">Dashboard</a>
             </li>
-            <li class="active">
-                <strong>Title</strong>
+            <li>
+                <a class="active" href="{{ route('user.index') }}"><strong>{{$title }}</strong></a>
             </li>
         </ol>
     </div>

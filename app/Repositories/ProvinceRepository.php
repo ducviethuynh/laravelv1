@@ -17,4 +17,5 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
     {
         return Province::all();
     }
+
 }

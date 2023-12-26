@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\DistrictRepository;
+use App\Repositories\Interfaces\DistrictRepositoryInterface;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\ProvinceRepository;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(ProvinceRepositoryInterface::class, ProvinceRepository::class);
+        $this->app->bind(DistrictRepositoryInterface::class, DistrictRepository::class);
     }
 
     /**

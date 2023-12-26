@@ -1,5 +1,5 @@
 (function ($) {
-    'use strict'
+    // 'use strict'
     var obj = {};
     var $document = $(document);
 
@@ -9,7 +9,12 @@
         });
     }
 
+    obj.select2 = () => {
+        $('.setupSelect2').select2();
+    }
+
     $document.ready(function () {
         obj.switchery();
+        obj.select2();
     });
 })(jQuery);

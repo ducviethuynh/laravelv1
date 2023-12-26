@@ -31,11 +31,15 @@ Route::get('dashboard/index', [DashboardController::class, 'index'])
     ->middleware(AuthenticateMiddleware::class);
 
 //QUẢN LÍ NGƯỜI DÙNG
-Route::group(['prefix' => 'user'], function (){
+Route::group(['prefix' => 'user'], function () {
     Route::get('index', [UserController::class, 'index'])
         ->name('user.index')
         ->middleware(AuthenticateMiddleware::class);
     Route::get('create', [UserController::class, 'create'])
+        ->name('user.create')
+        ->middleware(AuthenticateMiddleware::class);
+    Route::post('store', [UserController::class, 'store'])
+        ->name('user.store')
         ->middleware(AuthenticateMiddleware::class);
 });
 
@@ -46,9 +50,11 @@ Route::get('user/index', [UserController::class, 'index'])
     ->name('user.index')
     ->middleware(AuthenticateMiddleware::class);
 Route::get('user/create', [UserController::class, 'create'])
+    ->name('user.create')
     ->middleware(AuthenticateMiddleware::class);
 
 Route::get('admin', [AuthController::class, 'index'])
     ->name('auth.admin')
     ->middleware(LoginMiddleware::class);
+
 

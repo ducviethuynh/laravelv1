@@ -1,4 +1,4 @@
-<base href="{{ env('APP_URL') }}">
+<base href="{{ env('APP_URL').'/' }}">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,4 +16,5 @@
 <link href="backend/css/animate.css" rel="stylesheet">
 <link href="backend/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="backend/css/custom.css">
+
 <script src="backend/js/jquery-3.1.1.min.js"></script>

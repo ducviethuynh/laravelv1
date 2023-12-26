@@ -2,31 +2,52 @@
     'use strict'
     var obj = {};
 
-    obj.provice = () => {
-        $(document).on('change', '.province', function () {
+    obj.getLocation = () => {
+        $(document).on('change', '.location', function () {
             let _this = $(this);
-            let province_id = _this.val();
-
-            $.ajax({
-                url: 'ajax/location/getLocation',
-                type: 'GET',
-                data: {
-                    'province_id': province_id,
+            let option = {
+                'data': {
+                    'location_id': _this.val(),
                 },
-                dataType: function (res) {
-                    console.log(res)
-                },
-                success: function (rest) {
-                    $('.district').html(res.html)
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log('Error:' + textStatus + ' ' + errorThrown);
-                }
-            });
+                'target': _this.attr('data-target'),
+            }
+            // console.log(option);
+            obj.sendDataToGetLocation(option);
         });
     }
 
+    obj.sendDataToGetLocation = (option) => {
+        $.ajax({
+            url: 'ajax/location/getLocation',
+            type: 'GET',
+            data: option,
+            dataType: 'json',
+            success: function (res) {
+                $('.' + option.target).html(res.html);
+
+                if (district_id != '' && option.target == 'districts') {
+                    $('.districts').val(district_id).trigger('change');
+                }
+
+                if (ward_id != '' && option.target == 'wards') {
+                    $('.wards').val(ward_id).trigger('change');
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('lỗi:' + textStatus + ' ' + errorThrown);
+            }
+        });
+    }
+
+    obj.loadCity = () => {
+        if (province_id != '') {
+            $('.province').val(province_id).trigger('change');
+        }
+    }
+
+
     $(document).ready(function () {
-        obj.provice();
+        obj.getLocation();
+        obj.loadCity();
     });
 })(jQuery);

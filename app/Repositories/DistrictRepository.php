@@ -16,6 +16,6 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
 
     public function findDistrictByProvinceId(int $province_id)
     {
-        return $this->model->where('province_code', '=', $province_id);
+        return $this->model->where('province_code', '=', $province_id)->get();
     }
 }

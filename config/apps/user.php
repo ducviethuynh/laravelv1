@@ -5,7 +5,6 @@ return[
         'table' => 'Danh sách thành viên',
     ],
     'create' => [
-        'title' => 'Create a new user',
-
-    ]
+        'title' => 'Thêm mới thành viên',
+    ],
 ];
