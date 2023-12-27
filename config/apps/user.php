@@ -7,4 +7,7 @@ return[
     'create' => [
         'title' => 'Thêm mới thành viên',
     ],
+    'edit' => [
+        'title' => 'Cập nhật thông tin thành viên',
+    ]
 ];

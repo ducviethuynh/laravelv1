@@ -31,12 +31,12 @@
                     <div class="user-item phone"><strong>Thành phố:</strong>{{ $user->province_id }}</div>
                 </td>
                 <td>
-                    <input type="checkbox" name="" id="" class="js-switch" checked>
+                    <input type="checkbox" name="" id="" class="js-switch" value="{{ $user->publish }}" {{ ($user->publish === 1 ? 'checked' : '') }}>
                 </td>
                 <td>
                     <a href="" class="text-info"><i class="fa fa-eye"></i> Detail</a> <br>
-                    <a href="" class="text-warning"><i class="fa fa-edit"></i> Edit</a> <br>
-                    <a href="" class="text-danger"><i class="fa fa-trash"></i> Edit</a>
+                    <a href="{{ route('user.edit', [$user->id]) }}" class="text-warning"><i class="fa fa-edit"></i> Edit</a> <br>
+                    <a href="{{ route('user.delete', [$user->id]) }}" class="text-danger"><i class="fa fa-trash"></i> Delete</a>
                 </td>
             </tr>
         @endforeach

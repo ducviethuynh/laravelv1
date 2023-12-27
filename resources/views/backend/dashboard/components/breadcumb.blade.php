@@ -6,7 +6,7 @@
                 <a href="{{ route('dashboard.index') }}">Dashboard</a>
             </li>
             <li>
-                <a class="active" href="{{ route('user.index') }}"><strong>{{$title }}</strong></a>
+                <a class="active" href="{{ route('user.index') }}"><strong>{{ $title }}</strong></a>
             </li>
         </ol>
     </div>

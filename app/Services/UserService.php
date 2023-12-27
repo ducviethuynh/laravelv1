@@ -23,7 +23,8 @@ class UserService implements UserServiceInterface
 
     public function paginate($record)
     {
-        return $this->userRepository->getAllPaginate($record);
+        $user = $this->userRepository->pagination();
+        return $user;
     }
 
     public function create($request)
@@ -47,4 +48,46 @@ class UserService implements UserServiceInterface
 
     }
 
+    public function update($request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->except(['_token', 'send']);
+            $payload['birthday'] = $this->convertBirthdayDate($payload['birthday']);
+//            dd($payload);
+            $user = $this->userRepository->update($payload, $id);
+//            dd($user);
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            echo $exception->getMessage(); die();
+            return false;
+        }
+
+    }
+
+    private function convertBirthdayDate($birthday = '')
+    {
+        $carbonDate = Carbon::createFromFormat('Y-m-d', $birthday);
+
+        return $carbonDate->format('Y-m-d');
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+            $user = $this->userRepository->delete($id);
+
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            echo $exception->getMessage();
+            return false;
+        }
+    }
 }
