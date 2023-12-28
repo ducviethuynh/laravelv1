@@ -13,16 +13,19 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20)
+    public function pagination($column = ['*'], $condition = [], $join = [], $extend = [], $perpage = 1)
     {
-        $query = $this->model->select($column)
-            ->where($condition);
+        $query = $this->model->select($column)->where(function ($query) use ($condition) {
+            if (!empty($condition['keyword'])) {
+                $query->where('name', 'LIKE', '%'.$condition['keyword'].'%');
+            }
+        });
 
         if (!empty($join)) {
             $query->join(...$join);
         }
 
-        return $query->paginate($perpage);
+        return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL').$extend['path']);
     }
 
     public function all()
@@ -30,7 +33,7 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->all();
     }
 
-    public function findById(int $modelId, array $colunm = ['*'], array $relation = [])
+    public function findById($modelId, $colunm = ['*'], $relation = [])
     {
         return $this->model->select($colunm)->with($relation)->findOrFail($modelId);
     }
@@ -42,10 +45,16 @@ class BaseRepository implements BaseRepositoryInterface
         return $model->fresh();
     }
 
-    public function update($payload = [], $id = 0)
+    public function update($id = 0, $payload = [])
     {
         $model = $this->findById($id);
+
         return $model->update($payload);
+    }
+
+    public function updateByWhereIn(string $whereInField = '', array $whereIn = [], array $payload = [])
+    {
+        return $this->model->whereIn($whereInField, $whereIn)->update($payload);
     }
 
     public function delete($id)

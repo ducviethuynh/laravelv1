@@ -13,8 +13,8 @@
     <tbody>
     @if(isset($users) && is_object($users))
         @foreach($users as $user)
-            <tr>
-                <td><input type="checkbox" name="" id="input-checkbox checkbox-item"></td>
+            <tr class="">
+                <td><input type="checkbox" name="" value="{{ $user->id }}" id="input-checkbox checkbox-item" class="checkBoxItem"></td>
                 <td>{{ $user->id }}</td>
                 <td style="width: 100px">
                     <img class="img-cover" src="https://visabaongoc.com/wp-content/uploads/2017/11/20170314104803-22-1489484341784.jpg" alt="">
@@ -30,8 +30,8 @@
                     <div class="user-item phone"><strong>Quận:</strong> {{ $user->district_id }}</div>
                     <div class="user-item phone"><strong>Thành phố:</strong>{{ $user->province_id }}</div>
                 </td>
-                <td>
-                    <input type="checkbox" name="" id="" class="js-switch" value="{{ $user->publish }}" {{ ($user->publish === 1 ? 'checked' : '') }}>
+                <td class="js-switch-{{$user->id}}">
+                    <input data-modelId="{{ $user->id }}" type="checkbox" name="" id="" class="js-switch status " data-field="publish" data-model="User" value="{{ $user->publish }}" {{ ($user->publish === 1 ? 'checked' : '') }}>
                 </td>
                 <td>
                     <a href="" class="text-info"><i class="fa fa-eye"></i> Detail</a> <br>

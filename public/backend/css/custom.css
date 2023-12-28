@@ -7,3 +7,7 @@ img.img-cover {
 .mb-15 {
     margin-bottom: 15px;
 }
+
+.active-bg {
+    background-color: #ffc !important;
+}

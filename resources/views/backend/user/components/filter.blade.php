@@ -1,9 +1,13 @@
+<form action="{{ route('user.index') }}" method="get">
 <div class="filter">
     <div class="row">
         <div class="perpage col-md-2">
+            @php
+            $perpage = request('perpage') ?: old('perpage');
+            @endphp
             <select name="perpage" class="form-control filter perpage mr10">
                 @for($i = 10; $i <= 100; $i += 10)
-                    <option value="{{ $i }}">Lấy {{$i }} bản ghi</option>
+                    <option value="{{ $i }}" {{ $perpage == $i ? 'selected' : '' }}>Lấy {{$i }} bản ghi</option>
                 @endfor
             </select>
         </div>
@@ -17,10 +21,10 @@
         </div>
         <div class="col-md-4">
             <div class="input-group">
-                <input type="text" name="keyword" id="" placeholder="Nhập từ khóa cần tìm..." class="form-control">
+                <input type="text" value="{{ request('keyword') ?: old('keyword') }}" name="keyword" id="" placeholder="Nhập từ khóa cần tìm..." class="form-control">
                 <span class="input-group-btn">
-                            <button type="submit" name="search" value="" class="btn btn-primary">Tìm Kiếm</button>
-                        </span>
+                    <button type="submit" name="search" value="search" class="btn btn-primary">Tìm Kiếm</button>
+                </span>
             </div>
         </div>
     </div>
@@ -32,3 +36,4 @@
         </div>
     </div>
 </div>
+</form>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ajax\DashboardController as DashboardControllerAlias;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -67,7 +68,13 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 //AJAX
-Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation']);
+Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])
+->name('ajax.location.index')->middleware(AuthenticateMiddleware::class);
+Route::post('ajax/dashboard/changeStatus', [\App\Http\Controllers\Ajax\DashboardController::class, 'changeStatus'])
+->name('ajxa.dashboard.changeStasus')->middleware(AuthenticateMiddleware::class);
+Route::post('ajax/dashboard/changeStatusAll', [\App\Http\Controllers\Ajax\DashboardController::class, 'changeStatusAll'])
+    ->name('ajxa.dashboard.changeStasusAll')->middleware(AuthenticateMiddleware::class);
+
 
 Route::get('user/index', [UserController::class, 'index'])
     ->name('user.index')

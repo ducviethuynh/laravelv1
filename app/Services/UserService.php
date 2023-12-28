@@ -21,10 +21,12 @@ class UserService implements UserServiceInterface
         $this->userRepository = $userRepository;
     }
 
-    public function paginate($record)
+    public function paginate($request)
     {
-        $user = $this->userRepository->pagination();
-        return $user;
+        $condition['keyword'] = addslashes($request->input('keyword'));
+        $perpage = (int)$request->input('perpage');
+        $users = $this->userRepository->pagination($this->paginateSelect(), $condition, [], ['path' => 'user/index'], $perpage);
+        return $users;
     }
 
     public function create($request)
@@ -89,5 +91,53 @@ class UserService implements UserServiceInterface
             echo $exception->getMessage();
             return false;
         }
+    }
+
+    public function updateStatus($post = [])
+    {
+        DB::beginTransaction();
+        try {
+            $payload = [
+                $post['field'] => ($post['value'] == 1 ? 0 : 1),
+            ];
+
+            $user = $this->userRepository->update($post['modelId'], $payload);
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+
+    public function updateStatusAll($post)
+    {
+        DB::beginTransaction();
+        try {
+            $payload[$post['field']] = $post['value'];
+
+            $this->userRepository->updateByWhereIn('id', $post['id'], $payload);
+
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error($exception->getMessage());
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+
+    private function paginateSelect() {
+        return [
+            'id',
+            'email',
+            'phone',
+            'address',
+            'name',
+            'publish',
+        ];
     }
 }

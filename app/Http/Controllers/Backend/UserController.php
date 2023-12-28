@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
+use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -24,8 +26,10 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $users = $this->userService->paginate($request);
+
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -36,7 +40,7 @@ class UserController extends Controller
         ];
         $config['seo'] = config('apps.user');
 //        dd($config['seo']);
-        $users = $this->userService->paginate(10);
+        $users = $this->userService->paginate($request);
 
         $template = 'backend.user.index';
         return view('backend.dashboard.layout',
