@@ -1,4 +1,4 @@
-<form action="{{ route('user.index') }}" method="get">
+<form action="{{ route('user.catalogue.index') }}" method="get">
 <div class="filter">
     <div class="row">
         <div class="perpage col-md-2">
@@ -11,12 +11,16 @@
                 @endfor
             </select>
         </div>
-        <div class="action col-md-6">
-            <select name="user_catelogue_id" id="" class="form-control mr10">
-                <option value="0" selected>--[Chọn nhóm thành viên]--</option>
-                <option value="1" >Quản trị viên--</option>
-                <option value="2" >Nhân viên</option>
-                <option value="3" >Người dùng</option>
+        <div class="action col-md-3">
+            @php
+            $publishArray = ['Kích hoạt', 'Không kích hoạt', 'Bỏ chọn lọc'];
+            $publish = request('publist') ?: old('publish')
+            @endphp
+            <select name="publish" id="" class="form-control col-md-6 mr10">
+                <option value="" disabled selected>--[Chọn trạng thái]--</option>
+                @foreach($publishArray as $key => $value)
+                <option {{ $publish == $key ? 'selected' : '' }} value="{{ $key }}" >{{ $value }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col-md-4">
@@ -30,8 +34,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ route('user.create') }}" class="btn btn-primary alignright">
-                <i class="fa fa-plus"> Thêm thành viên mới</i>
+            <a href="{{ route('user.catalogue.create') }}" class="btn btn-primary alignright">
+                <i class="fa fa-plus"> Thêm mới nhóm</i>
             </a>
         </div>
     </div>

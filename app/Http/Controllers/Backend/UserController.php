@@ -42,7 +42,7 @@ class UserController extends Controller
 //        dd($config['seo']);
         $users = $this->userService->paginate($request);
 
-        $template = 'backend.user.index';
+        $template = 'backend.user.user.index';
         return view('backend.dashboard.layout',
             compact(
                 'template',
@@ -66,7 +66,7 @@ class UserController extends Controller
         ];
         $config['seo'] = config('apps.user');
 
-        $template = 'backend.user.create';
+        $template = 'backend.user.user.create';
         return view('backend.dashboard.layout',
             compact('template', 'config', 'provinces'));
     }
@@ -95,7 +95,7 @@ class UserController extends Controller
         ];
         $config['seo'] = config('apps.user');
 //        dd($config);
-        $template = 'backend.user.edit';
+        $template = 'backend.user.user.edit';
         return view('backend.dashboard.layout',
             compact(
                 'template',
@@ -117,15 +117,15 @@ class UserController extends Controller
     {
         $user = $this->userRepository->findById($id);
         $config['seo'] = config('apps.user');
-        $template = 'backend.user.delete';
+        $template = 'backend.user.user.delete';
         return view('backend.dashboard.layout', compact('template', 'user', 'config'));
     }
 
     public function destroy($id)
     {
-        if ($this->userService->destroy($id)) {
-            return redirect()->route('user.index')->with('success', 'Xóa bản ghi thành công');
-        }
-        return redirect()->route('user.delete')->with('error', 'Xóa bản ghi không thành công');
+            if ($this->userService->destroy($id)) {
+                return redirect()->route('user.index')->with('success', 'Xóa bản ghi thành công');
+            }
+            return redirect()->route('user.delete')->with('error', 'Xóa bản ghi không thành công');
     }
 }

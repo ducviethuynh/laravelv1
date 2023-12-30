@@ -4,6 +4,7 @@ use App\Http\Controllers\Ajax\DashboardController as DashboardControllerAlias;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\LoginMiddleware;
@@ -64,6 +65,41 @@ Route::group(['prefix' => 'user'], function () {
     Route::delete('{id}/destroy', [UserController::class, 'destroy'])
         ->where(['id' => '[0-9]+'])
         ->name('user.destroy')
+        ->middleware(AuthenticateMiddleware::class);
+});
+
+//QUẢN LÍ NHÓM THÀNH VIÊN
+Route::group(['prefix' => 'user/catalogue'], function () {
+    Route::get('index', [UserCatalogueController::class, 'index'])
+        ->name('user.catalogue.index')
+        ->middleware(AuthenticateMiddleware::class);
+
+    Route::get('create', [UserCatalogueController::class, 'create'])
+        ->name('user.catalogue.create')
+        ->middleware(AuthenticateMiddleware::class);
+
+    Route::post('store', [UserCatalogueController::class, 'store'])
+        ->name('user.catalogue.store')
+        ->middleware(AuthenticateMiddleware::class);
+
+    Route::get('{id}/edit', [UserCatalogueController::class, 'edit'])
+        ->where(['id' => '[0-9]+'])
+        ->name('user.catalogue.edit')
+        ->middleware(AuthenticateMiddleware::class);
+
+    Route::post('{id}/update', [UserCatalogueController::class, 'update'])
+        ->where(['id' => '[0-9]+'])
+        ->name('user.catalogue.update')
+        ->middleware(AuthenticateMiddleware::class);
+
+    Route::get('{id}/delete', [UserCatalogueController::class, 'delete'])
+        ->where(['id' => '[0-9]+'])
+        ->name('user.catalogue.delete')
+        ->middleware(AuthenticateMiddleware::class);
+
+    Route::delete('{id}/destroy', [UserCatalogueController::class, 'destroy'])
+        ->where(['id' => '[0-9]+'])
+        ->name('user.catalogue.destroy')
         ->middleware(AuthenticateMiddleware::class);
 });
 

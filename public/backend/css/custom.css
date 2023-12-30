@@ -11,3 +11,14 @@ img.img-cover {
 .active-bg {
     background-color: #ffc !important;
 }
+
+.switchery-small {
+    border-radius: 20px;
+    height: 20px;
+    width: 33px;
+}
+
+.switchery-small>small {
+    height: 20px;
+    width: 20px;
+}

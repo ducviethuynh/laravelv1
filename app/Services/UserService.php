@@ -24,6 +24,7 @@ class UserService implements UserServiceInterface
     public function paginate($request)
     {
         $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['publish'] = $request->integer('publish');
         $perpage = (int)$request->input('perpage');
         $users = $this->userRepository->pagination($this->paginateSelect(), $condition, [], ['path' => 'user/index'], $perpage);
         return $users;
@@ -47,7 +48,6 @@ class UserService implements UserServiceInterface
             echo $exception->getMessage(); die();
             return false;
         }
-
     }
 
     public function update($request, $id)
